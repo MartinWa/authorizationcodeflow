@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using authorizationcodeflow.Models;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Mvc;
 
 namespace authorizationcodeflow.Controllers
@@ -13,11 +12,15 @@ namespace authorizationcodeflow.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Discovery(DiscoveryModel model)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var discoveryClient = new DiscoveryClient(model.Url);
+            var doc = await discoveryClient.GetAsync();
+            if (doc.IsError)
+            {
+                return Error(doc.Error);
+            }
+            return View(doc);
         }
 
         public IActionResult Contact()
@@ -27,9 +30,9 @@ namespace authorizationcodeflow.Controllers
             return View();
         }
 
-        public IActionResult Error()
+        public IActionResult Error(string error = "")
         {
-            return View();
+            return View("Error", error);
         }
     }
 }

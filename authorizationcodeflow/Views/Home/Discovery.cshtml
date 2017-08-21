@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+@using Microsoft.ApplicationInsights.Extensibility
+@model IdentityModel.Client.DiscoveryResponse
+
+<h2>Discovery information for @Model.Issuer</h2>
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.AuthorizeEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.AuthorizeEndpoint)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.IntrospectionEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.IntrospectionEndpoint)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.TokenEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.TokenEndpoint)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.UserInfoEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.UserInfoEndpoint)</td>
+    </tr>
+</table>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>Claims Supported</th>
+    </tr>
+    @foreach (var item in Model.ClaimsSupported)
+    {
+        <tr>
+            <td>@item</td>
+        </tr>
+    }
+</table>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>Grant Types Supported</th>
+    </tr>
+    @foreach (var item in Model.GrantTypesSupported)
+    {
+        <tr>
+            <td>@item</td>
+        </tr>
+    }
+</table>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>Response Types Supported</th>
+    </tr>
+    @foreach (var item in Model.ResponseTypesSupported)
+    {
+        <tr>
+            <td>@item</td>
+        </tr>
+    }
+</table>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>Response Modes Supported</th>
+    </tr>
+    @foreach (var item in Model.ResponseModesSupported)
+    {
+        <tr>
+            <td>@item</td>
+        </tr>
+    }
+</table>
