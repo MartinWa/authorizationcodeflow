@@ -1,34 +1,54 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Discovery";
 }
-@using Microsoft.ApplicationInsights.Extensibility
-@model IdentityModel.Client.DiscoveryResponse
+@using authorizationcodeflow.Models
+@model DiscoveryViewModel
 
-<h2>Discovery information for @Model.Issuer</h2>
+<h2>Discovery information for @Model.DiscoveryResponse.Issuer</h2>
+
+<form asp-controller="Home" asp-action="Authorize" method="post">
+    <input asp-for="ClientId" , value="acftest" />
+    <input asp-for="Scope" , value="openid" />
+    <input asp-for="Issuer" , type="hidden" value="@Model.DiscoveryResponse.Issuer" />
+    <button type="submit">Discover</button>
+</form>
+
+
 <table class="table table-striped">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.AuthorizeEndpoint)</th>
-        <td>@Html.DisplayFor(model => model.AuthorizeEndpoint)</td>
+        <th>@Html.DisplayNameFor(model => model.DiscoveryResponse.AuthorizeEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.DiscoveryResponse.AuthorizeEndpoint)</td>
     </tr>
     <tr>
-        <th>@Html.DisplayNameFor(model => model.IntrospectionEndpoint)</th>
-        <td>@Html.DisplayFor(model => model.IntrospectionEndpoint)</td>
+        <th>@Html.DisplayNameFor(model => model.DiscoveryResponse.IntrospectionEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.DiscoveryResponse.IntrospectionEndpoint)</td>
     </tr>
     <tr>
-        <th>@Html.DisplayNameFor(model => model.TokenEndpoint)</th>
-        <td>@Html.DisplayFor(model => model.TokenEndpoint)</td>
+        <th>@Html.DisplayNameFor(model => model.DiscoveryResponse.TokenEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.DiscoveryResponse.TokenEndpoint)</td>
     </tr>
     <tr>
-        <th>@Html.DisplayNameFor(model => model.UserInfoEndpoint)</th>
-        <td>@Html.DisplayFor(model => model.UserInfoEndpoint)</td>
+        <th>@Html.DisplayNameFor(model => model.DiscoveryResponse.UserInfoEndpoint)</th>
+        <td>@Html.DisplayFor(model => model.DiscoveryResponse.UserInfoEndpoint)</td>
     </tr>
 </table>
 <br />
 <table class="table table-striped">
     <tr>
+        <th>Scopes Supported</th>
+    </tr>
+    @foreach (var item in Model.DiscoveryResponse.ScopesSupported)
+    {
+        <tr>
+            <td>@item</td>
+        </tr>
+    }
+</table>
+<table class="table table-striped">
+    <tr>
         <th>Claims Supported</th>
     </tr>
-    @foreach (var item in Model.ClaimsSupported)
+    @foreach (var item in Model.DiscoveryResponse.ClaimsSupported)
     {
         <tr>
             <td>@item</td>
@@ -40,7 +60,7 @@
     <tr>
         <th>Grant Types Supported</th>
     </tr>
-    @foreach (var item in Model.GrantTypesSupported)
+    @foreach (var item in Model.DiscoveryResponse.GrantTypesSupported)
     {
         <tr>
             <td>@item</td>
@@ -52,7 +72,7 @@
     <tr>
         <th>Response Types Supported</th>
     </tr>
-    @foreach (var item in Model.ResponseTypesSupported)
+    @foreach (var item in Model.DiscoveryResponse.ResponseTypesSupported)
     {
         <tr>
             <td>@item</td>
@@ -64,7 +84,7 @@
     <tr>
         <th>Response Modes Supported</th>
     </tr>
-    @foreach (var item in Model.ResponseModesSupported)
+    @foreach (var item in Model.DiscoveryResponse.ResponseModesSupported)
     {
         <tr>
             <td>@item</td>
